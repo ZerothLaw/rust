@@ -279,6 +279,8 @@ pub fn create_function_debug_context(
         }
         None => {}
     };
+
+    // Tell LLVM that functions that return uninhabited types will not return.
     if cx.layout_of(sig.output()).abi.is_uninhabited() {
         flags = flags | DIFlags::FlagNoReturn;
     }

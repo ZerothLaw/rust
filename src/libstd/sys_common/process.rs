@@ -66,6 +66,7 @@ impl<K: EnvKey> CommandEnv<K> {
     pub fn capture(&self) -> BTreeMap<K, OsString> {
         let mut result = BTreeMap::<K, OsString>::new();
         if !self.clear {
+            #[allow(unused_mut)] // `Env` is uninhabited on some platforms.
             for (k, v) in env::vars_os() {
                 result.insert(k.into(), v);
             }
@@ -83,6 +84,7 @@ impl<K: EnvKey> CommandEnv<K> {
     // Apply these changes directly to the current environment
     pub fn apply(&self) {
         if self.clear {
+            #[allow(unused_mut)] // `Env` is uninhabited on some platforms.
             for (k, _) in env::vars_os() {
                 env::remove_var(k);
             }
