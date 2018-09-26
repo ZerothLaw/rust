@@ -729,6 +729,7 @@ impl TcpListener {
     /// ```
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn accept(&self) -> io::Result<(TcpStream, SocketAddr)> {
+        #[allow(unused_variables)] // `TcpStream` is uninhabited on some platforms.
         self.0.accept().map(|(a, b)| (TcpStream(a), b))
     }
 
